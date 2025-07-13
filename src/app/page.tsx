@@ -1,3 +1,5 @@
+"use client";
+
 import AuthButtons from "@/components/AuthButtons";
 import HeroTitle from "@/components/HeroTitle";
 

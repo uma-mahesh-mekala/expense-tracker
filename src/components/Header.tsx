@@ -1,20 +1,23 @@
 // app/components/Header.tsx
 import Image from "next/image";
+
 export default function Header() {
   return (
-    <header className="bg-white shadow-sm">
-      <div className="max-w-5xl mx-auto flex items-center gap-3 px-4 py-4">
+    <header className="bg-white border-b border-gray-200 shadow-sm">
+      <div className="flex gap-3 px-4 py-4">
+        {/* Title */}
+        <h1 className="text-xl sm:text-2xl font-semibold text-gray-800">
+          <span className="text-blue-600">Expense</span> Tracker
+        </h1>
+
         {/* Logo */}
         <Image
           src="/logo.svg"
           alt="Logo"
-          width={32}
-          height={32}
+          width={30}
+          height={30}
           className="object-contain"
         />
-
-        {/* Title */}
-        <h1 className="text-xl font-semibold text-gray-800">Expense Tracker</h1>
       </div>
     </header>
   );
