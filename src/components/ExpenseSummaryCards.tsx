@@ -1,0 +1,20 @@
+"use client";
+
+export default function ExpenseSummaryCards() {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+      <div className="bg-white p-4 rounded shadow">
+        <h3 className="text-sm text-gray-500">Today&apos;s Expense</h3>
+        <p className="text-2xl font-bold text-blue-600">₹0</p>
+      </div>
+      <div className="bg-white p-4 rounded shadow">
+        <h3 className="text-sm text-gray-500">Monthly Expense</h3>
+        <p className="text-2xl font-bold text-green-600">₹0</p>
+      </div>
+      <div className="bg-white p-4 rounded shadow">
+        <h3 className="text-sm text-gray-500">Most Spent On</h3>
+        <p className="text-lg font-semibold text-gray-800">N/A</p>
+      </div>
+    </div>
+  );
+}
