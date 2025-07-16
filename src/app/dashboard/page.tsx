@@ -1,7 +1,18 @@
+import createServerSupabaseClient from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
 import DashboardSidebar from "@/components/DashboardSideBar";
 import ExpenseSummaryCards from "@/components/ExpenseSummaryCards";
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const supabase = await createServerSupabaseClient();
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session) {
+    redirect("/login");
+  }
   return (
     <main className="flex flex-col md:flex-row gap-4 p-4">
       {/* Sidebar */}

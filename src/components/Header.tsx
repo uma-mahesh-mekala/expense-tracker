@@ -11,7 +11,7 @@ export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
-  const isAuthPage = pathname === "/login";
+  const isAuthPage = pathname === "/login" || pathname === "/";
 
   const handleSignOut = async () => {
     await supabaseClient.auth.signOut();
