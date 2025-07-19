@@ -1,4 +1,4 @@
-import createServerSupabaseClient from "@/utils/supabase/server";
+import { createServerSupabaseClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import DashboardSidebar from "@/components/DashboardSideBar";
 import ExpenseSummaryCards from "@/components/ExpenseSummaryCards";

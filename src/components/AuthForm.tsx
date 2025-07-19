@@ -1,50 +1,31 @@
 // app/login/page.tsx
 "use client";
-import supabaseClient from "@/lib/supabaseClient";
-import { useState } from "react";
+import { useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { signUp, login } from "@/lib/actions";
 
 interface AuthFormProps {
   mode: "login" | "signup";
 }
 export default function AuthForm({ mode }: AuthFormProps) {
-  const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-    setErrorMessage("");
-
-    let error;
-
-    if (mode === "signup") {
-      ({ error } = await supabaseClient.auth.signUp({
-        email,
-        password,
-      }));
-      if (!error) {
-        router.push("/login");
-      }
-    } else {
-      ({ error } = await supabaseClient.auth.signInWithPassword({
-        email,
-        password,
-      }));
-      if (!error) {
-        router.push("/dashboard");
-      }
-    }
-
-    if (error) {
-      setErrorMessage(error.message);
-    }
-
-    setLoading(false);
+  const initialState = {
+    error: "",
+    success: false,
   };
+  const router = useRouter();
+  const [state, formAction, isPending] = useActionState(
+    mode === "signup" ? signUp : login,
+    initialState
+  );
+
+  useEffect(() => {
+    if (state?.success && mode === "signup") {
+      router.push("/login");
+    }
+    if (state?.success && mode === "login") {
+      router.push("/dashboard");
+    }
+  }, [state, mode, router]);
 
   return (
     <section className="flex flex-col items-center justify-center min-h-[70vh] px-4">
@@ -52,9 +33,16 @@ export default function AuthForm({ mode }: AuthFormProps) {
         <h2 className="text-2xl font-semibold mb-4 text-center">
           {mode === "signup" ? "Sign Up" : "Log In"}
         </h2>
-        <form className="space-y-4" onSubmit={handleSubmit}>
-          {errorMessage && (
-            <p className="text-red-200 text-sm">{errorMessage}</p>
+        <form className="space-y-4" action={formAction}>
+          {state?.error && (
+            <p className="text-red-200 text-sm">{state.error}</p>
+          )}
+          {state?.success && (
+            <p className="text-green-200 text-sm">
+              {mode === "signup"
+                ? "Sign Up Successfully"
+                : "Login Successfully"}
+            </p>
           )}
           <div>
             <label
@@ -69,8 +57,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
               className="mt-1 w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="you@example.com"
               required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="email"
             />
           </div>
           <div>
@@ -86,16 +73,15 @@ export default function AuthForm({ mode }: AuthFormProps) {
               className="mt-1 w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="********"
               required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              name="password"
             />
           </div>
           <button
             type="submit"
-            disabled={loading}
+            disabled={isPending}
             className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
           >
-            {loading
+            {isPending
               ? mode === "signup"
                 ? "Signing Up"
                 : "Logging In"
