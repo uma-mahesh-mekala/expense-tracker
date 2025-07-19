@@ -1,15 +1,17 @@
-"use client";
-
-export default function ExpenseSummaryCards() {
+"use server";
+import { getTodaysExpense, getMonthlyExpense } from "@/lib/actions";
+export default async function ExpenseSummaryCards() {
+  const { todaysExpense } = await getTodaysExpense();
+  const { monthlyExpense } = await getMonthlyExpense();
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
       <div className="bg-white p-4 rounded shadow">
         <h3 className="text-sm text-gray-500">Today&apos;s Expense</h3>
-        <p className="text-2xl font-bold text-blue-600">₹0</p>
+        <p className="text-2xl font-bold text-blue-600">₹{todaysExpense}</p>
       </div>
       <div className="bg-white p-4 rounded shadow">
         <h3 className="text-sm text-gray-500">Monthly Expense</h3>
-        <p className="text-2xl font-bold text-green-600">₹0</p>
+        <p className="text-2xl font-bold text-green-600">₹{monthlyExpense}</p>
       </div>
       <div className="bg-white p-4 rounded shadow">
         <h3 className="text-sm text-gray-500">Most Spent On</h3>
