@@ -1,7 +1,7 @@
 'use server'
 import { createServerSupabaseClient } from "@/utils/supabase/server";
 
-interface FormState {
+export interface FormState {
     error?: string | null;
     success?: boolean | null
 }
@@ -13,6 +13,12 @@ interface TodaysExpense {
 interface MonthlyExpense {
     monthlyExpense?: number;
     error?: string | null
+}
+
+export interface AddExpense {
+    error?: string | null,
+    data?: unknown,
+    success?: boolean
 }
 export async function signUp(state: FormState, formData: FormData): Promise<FormState> {
     const supabase = await createServerSupabaseClient();
@@ -90,5 +96,33 @@ export async function getMonthlyExpense(): Promise<MonthlyExpense> {
     return {
         monthlyExpense: data.length > 0 ? data.reduce((acc, curr) => acc + curr.amount, 0) : 0
     }
+}
+
+export async function addExpense(state: FormState, formData: FormData): Promise<AddExpense> {
+    const supabase = await createServerSupabaseClient();
+
+    const { data, error } = await supabase
+        .from('expenses')
+        .insert([
+            {
+                category: formData.get('category') as string,
+                notes: formData.get('notes') as string,
+                amount: formData.get('amount') as unknown as number,
+                created_at: new Date().toISOString().slice(0, 10)
+            },
+        ])
+        .select();
+
+    if (error) {
+        return {
+            error: error.message,
+        }
+    }
+
+    return {
+        data,
+        success: true,
+    }
+
 }
 
