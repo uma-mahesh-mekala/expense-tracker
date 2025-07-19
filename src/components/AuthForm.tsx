@@ -2,7 +2,7 @@
 "use client";
 import { useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { signUp, login } from "@/lib/actions";
+import { signUp, login } from "@/lib/auth/actions";
 
 interface AuthFormProps {
   mode: "login" | "signup";

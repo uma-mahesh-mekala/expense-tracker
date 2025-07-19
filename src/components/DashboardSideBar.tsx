@@ -1,9 +1,10 @@
 "use client";
 import { categories } from "@/utils/constants";
-import { addExpense } from "@/lib/actions";
+import { addExpense } from "@/lib/db/db";
 import { useActionState } from "react";
-import { FormState, AddExpense } from "@/lib/actions";
 import { useRouter } from "next/navigation";
+import { FormState, AddExpense } from "@/types";
+
 export default function DashboardSideBar() {
   const router = useRouter();
 

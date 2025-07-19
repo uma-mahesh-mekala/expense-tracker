@@ -1,11 +1,11 @@
 // app/components/Header.tsx
 "use client";
 
-import supabaseClient from "@/lib/supabaseClient";
 import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
 import { useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import { signOut } from "@/lib/auth/actions";
 
 export default function Header() {
   const pathname = usePathname();
@@ -14,7 +14,7 @@ export default function Header() {
   const isAuthPage = pathname === "/login" || pathname === "/";
 
   const handleSignOut = async () => {
-    await supabaseClient.auth.signOut();
+    await signOut();
     router.push("/login");
   };
 

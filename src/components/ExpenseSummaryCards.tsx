@@ -1,5 +1,5 @@
 "use server";
-import { getTodaysExpense, getMonthlyExpense } from "@/lib/actions";
+import { getTodaysExpense, getMonthlyExpense } from "@/lib/db/db";
 export default async function ExpenseSummaryCards() {
   const { todaysExpense } = await getTodaysExpense();
   const { monthlyExpense } = await getMonthlyExpense();
