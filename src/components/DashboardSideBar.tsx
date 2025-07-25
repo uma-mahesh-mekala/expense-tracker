@@ -1,4 +1,5 @@
 "use client";
+import Input from "./ui/Input";
 import { categories } from "@/utils/constants";
 import { addExpense } from "@/lib/db/db";
 import { useActionState } from "react";
@@ -52,35 +53,8 @@ export default function DashboardSideBar() {
             ))}
           </select>
         </div>
-        <div>
-          <label
-            htmlFor="notes"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Notes
-          </label>
-          <input
-            name="notes"
-            type="text"
-            className="mt-1 w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
-            placeholder="Enter Notes"
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="amount"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Amount
-          </label>
-          <input
-            name="amount"
-            type="number"
-            className="mt-1 w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
-            placeholder="Enter amount"
-            required
-          />
-        </div>
+        <Input label = 'Notes' type='text' id='notes' name ='notes' placeholder='Enter Notes'/>
+        <Input label = 'Amount' type='number' id='amount' name ='amount' placeholder='Enter amount'/>
         <button
           type="submit"
           className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"

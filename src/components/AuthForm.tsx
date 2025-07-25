@@ -2,6 +2,7 @@
 "use client";
 import { useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Input from "./ui/Input";
 import { signUp, login } from "@/lib/auth/actions";
 
 interface AuthFormProps {
@@ -44,38 +45,8 @@ export default function AuthForm({ mode }: AuthFormProps) {
                 : "Login Successfully"}
             </p>
           )}
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="mt-1 w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="you@example.com"
-              required
-              name="email"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="mt-1 w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="********"
-              required
-              name="password"
-            />
-          </div>
+          <Input label = 'Email' error={state.error} type='email' placeholder="example@mail.com" required name ='email' id='name'/>
+          <Input label = 'Password' error={state.error} type='password' placeholder="********" required name ='password' id='password'/>
           <button
             type="submit"
             disabled={isPending}
