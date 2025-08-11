@@ -26,3 +26,8 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   error?: string | null;
   className?: string;
 }
+
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    buttonText?: string;
+    className?: string;
+}

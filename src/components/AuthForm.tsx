@@ -3,6 +3,7 @@
 import { useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Input from "./ui/Input";
+import Button from "./ui/Button";
 import { signUp, login } from "@/lib/auth/actions";
 
 interface AuthFormProps {
@@ -47,19 +48,18 @@ export default function AuthForm({ mode }: AuthFormProps) {
           )}
           <Input label = 'Email' error={state.error} type='email' placeholder="example@mail.com" required name ='email' id='name'/>
           <Input label = 'Password' error={state.error} type='password' placeholder="********" required name ='password' id='password'/>
-          <button
+          <Button
             type="submit"
             disabled={isPending}
-            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
-          >
-            {isPending
+            buttonText = {isPending
               ? mode === "signup"
                 ? "Signing Up"
                 : "Logging In"
               : mode === "signup"
               ? "Sign Up"
               : "Log In"}
-          </button>
+          />
+            
         </form>
       </div>
     </section>

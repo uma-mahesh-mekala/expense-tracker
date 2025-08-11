@@ -1,5 +1,6 @@
 "use client";
 import Input from "./ui/Input";
+import Button from "./ui/Button";
 import { categories } from "@/utils/constants";
 import { addExpense } from "@/lib/db/db";
 import { useActionState } from "react";
@@ -55,13 +56,11 @@ export default function DashboardSideBar() {
         </div>
         <Input label = 'Notes' type='text' id='notes' name ='notes' placeholder='Enter Notes'/>
         <Input label = 'Amount' type='number' id='amount' name ='amount' placeholder='Enter amount'/>
-        <button
+        <Button
           type="submit"
-          className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
           disabled={isPending}
-        >
-          {isPending ? "Adding Expense" : "Add Expense"}
-        </button>
+          buttonText = {isPending ? "Adding Expense" : "Add Expense"}
+        />
       </form>
     </aside>
   );
