@@ -1,33 +1,35 @@
-import React from 'react'
+import type React from "react";
 
 export interface FormState {
-    error?: string | null;
-    success?: boolean | null
+	error?: string | null;
+	success?: boolean | null;
 }
 
 export interface TodaysExpense {
-    todaysExpense?: number;
-    error?: string | null
+	todaysExpense?: number;
+	error?: string | null;
 }
 
 export interface MonthlyExpense {
-    monthlyExpense?: number;
-    error?: string | null
+	monthlyExpense?: number;
+	error?: string | null;
 }
 
 export interface AddExpense {
-    error?: string | null,
-    data?: unknown,
-    success?: boolean
+	error?: string | null;
+	data?: unknown;
+	success?: boolean;
 }
 
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
-  error?: string | null;
-  className?: string;
+export interface InputProps
+	extends React.InputHTMLAttributes<HTMLInputElement> {
+	label?: string;
+	error?: string | null;
+	className?: string;
 }
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    buttonText?: string;
-    className?: string;
+export interface ButtonProps
+	extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+	buttonText?: string;
+	className?: string;
 }
