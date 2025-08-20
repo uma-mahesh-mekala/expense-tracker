@@ -1,20 +1,20 @@
 export interface FormState {
-    error?: string | null;
-    success?: boolean | null
+	error?: string | null;
+	success?: boolean | null;
 }
 
 export interface TodaysExpense {
-    todaysExpense?: number;
-    error?: string | null
+	todaysExpense?: number;
+	error?: string | null;
 }
 
 export interface MonthlyExpense {
-    monthlyExpense?: number;
-    error?: string | null
+	monthlyExpense?: number;
+	error?: string | null;
 }
 
 export interface AddExpense {
-    error?: string | null,
-    data?: unknown,
-    success?: boolean
+	error?: string | null;
+	data?: unknown;
+	success?: boolean;
 }
