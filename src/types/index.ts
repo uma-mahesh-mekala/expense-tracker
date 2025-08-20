@@ -1,3 +1,5 @@
+import type React from "react";
+
 export interface FormState {
 	error?: string | null;
 	success?: boolean | null;
@@ -17,4 +19,17 @@ export interface AddExpense {
 	error?: string | null;
 	data?: unknown;
 	success?: boolean;
+}
+
+export interface InputProps
+	extends React.InputHTMLAttributes<HTMLInputElement> {
+	label?: string;
+	error?: string | null;
+	className?: string;
+}
+
+export interface ButtonProps
+	extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+	buttonText?: string;
+	className?: string;
 }
