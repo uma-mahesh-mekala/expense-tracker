@@ -1,8 +1,10 @@
 "use server";
 import { getMonthlyExpense, getTodaysExpense } from "@/lib/db/db";
+
 export default async function ExpenseSummaryCards() {
 	const { todaysExpense } = await getTodaysExpense();
 	const { monthlyExpense } = await getMonthlyExpense();
+
 	return (
 		<div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
 			<div className="bg-white p-4 rounded shadow">
