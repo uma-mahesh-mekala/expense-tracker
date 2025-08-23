@@ -11,10 +11,7 @@ import { createServerSupabaseClient } from "@/utils/supabase/server";
 export async function getTodaysExpense(): Promise<TodaysExpense> {
 	const supabase = await createServerSupabaseClient();
 
-	const { data, error } = await supabase
-		.from("expenses")
-		.select("*")
-		.eq("created_at", new Date().toISOString().split("T")[0]);
+	const { data, error } = await supabase.rpc("getTodaysExpense");
 
 	if (error) {
 		return {
@@ -23,26 +20,14 @@ export async function getTodaysExpense(): Promise<TodaysExpense> {
 	}
 
 	return {
-		todaysExpense:
-			data.length > 0 ? data.reduce((acc, curr) => acc + curr.amount, 0) : 0,
+		todaysExpense: data ?? 0,
 	};
 }
 
 export async function getMonthlyExpense(): Promise<MonthlyExpense> {
 	const supabase = await createServerSupabaseClient();
 
-	const { data, error } = await supabase
-		.from("expenses")
-		.select("*")
-		.gte(
-			"created_at",
-			new Date(
-				new Date().getFullYear(),
-				new Date().getMonth(),
-				1,
-			).toISOString(),
-		)
-		.lte("created_at", new Date().toISOString());
+	const { data, error } = await supabase.rpc("getMonthlyExpense");
 
 	if (error) {
 		return {
@@ -51,8 +36,7 @@ export async function getMonthlyExpense(): Promise<MonthlyExpense> {
 	}
 
 	return {
-		monthlyExpense:
-			data.length > 0 ? data.reduce((acc, curr) => acc + curr.amount, 0) : 0,
+		monthlyExpense: data ?? 0,
 	};
 }
 
@@ -62,17 +46,12 @@ export async function addExpense(
 ): Promise<AddExpense> {
 	const supabase = await createServerSupabaseClient();
 
-	const { data, error } = await supabase
-		.from("expenses")
-		.insert([
-			{
-				category: formData.get("category") as string,
-				notes: formData.get("notes") as string,
-				amount: formData.get("amount") as unknown as number,
-				created_at: new Date().toISOString().slice(0, 10),
-			},
-		])
-		.select();
+	const { error } = await supabase.rpc("addExpense", {
+		category: formData.get("category") as string,
+		notes: formData.get("notes") as string,
+		amount: formData.get("amount") as unknown as number,
+		created_at: new Date().toISOString().slice(0, 10),
+	});
 
 	if (error) {
 		return {
@@ -81,7 +60,14 @@ export async function addExpense(
 	}
 
 	return {
-		data,
 		success: true,
 	};
+}
+
+export async function getMonthlyExpenseByPercentage() {
+	const supabase = await createServerSupabaseClient();
+
+	const { data, error } = await supabase.rpc("getmonthlyexpensespercentage");
+	if (error) console.error(error);
+	else console.log(data);
 }
